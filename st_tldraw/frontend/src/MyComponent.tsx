@@ -16,9 +16,9 @@ import 'tldraw/tldraw.css'
 
 
 
-function JSONGraphe({ args, disabled, theme }: ComponentProps): ReactElement {
+function ST_Tldraw({ args, disabled, theme }: ComponentProps): ReactElement {
   // Extract custom arguments passed from Python
-  const { json } = args
+  const { persistenceKey, json } = args
 
   useEffect(() => {
     Streamlit.setFrameHeight()
@@ -46,10 +46,16 @@ const handleMount = useCallback((editor: any) => {
   }, [json])
 
 
-  return <div style={{height : 500, border : '1px red solid'}}><Tldraw onMount={handleMount}/></div>
+  return <div style={{height : 500, border : '1px red solid'}}>
+          <Tldraw 
+          onMount={handleMount}
+          persistenceKey={persistenceKey}
+          initialData={json}
+          />
+         </div>
 
 
 }
 
 
-export default withStreamlitConnection(JSONGraphe)
+export default withStreamlitConnection(ST_Tldraw)
